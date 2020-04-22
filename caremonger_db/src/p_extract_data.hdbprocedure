@@ -1,9 +1,0 @@
-PROCEDURE "caremonger.caremonger_db::p_extract_data"()
-LANGUAGE SQLSCRIPT
-SQL SECURITY INVOKER
-AS
-BEGIN
-
-
-
-END

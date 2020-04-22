@@ -1,0 +1,3 @@
+service {
+	"caremonger.caremonger_db::v_order_details" as "order_details" keys generate local "ID";
+}

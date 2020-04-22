@@ -1,17 +1,18 @@
 {
-  "dependencies": {},
+  "dependencies": {
+    "@sap/xsenv": "^2.0.0",
+    "@sap/xsjs": "^5.2.0"
+  },
   "description": "my description",
   "devDependencies": {
-    "jest": "^23.6.0",
-    "jest-junit": "^5.2.0"
+    "@sap/xsjs-test": "^3.0.2"
   },
   "files": [],
   "main": "server.js",
   "name": "caremonger_extract",
   "scripts": {
-    "test": "node node_modules/jest/bin/jest --config jest.json",
-    "test-coverage": "node node_modules/jest/bin/jest --coverage --config jest.json",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node testrun.js"
   },
   "engines": {
     "node": "10.x"

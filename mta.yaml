@@ -9,10 +9,12 @@ modules:
    requires:
     - name: hdi_caremonger_db
 
-
  - name: caremonger_extract
    type: nodejs
    path: caremonger_extract
+   requires:
+    - name: caremonger_db
+    - name: hdi_caremonger_db
    provides:
     - name: caremonger_extract_api
       properties:
