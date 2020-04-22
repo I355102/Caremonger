@@ -1,0 +1,28 @@
+ID: caremonger
+_schema-version: '2.1'
+version: 0.0.1
+
+modules:
+ - name: caremonger_db
+   type: hdb
+   path: caremonger_db
+   requires:
+    - name: hdi_caremonger_db
+
+
+ - name: caremonger_extract
+   type: nodejs
+   path: caremonger_extract
+   provides:
+    - name: caremonger_extract_api
+      properties:
+         url: ${default-url}
+
+resources:
+ - name: hdi_caremonger_db
+   parameters:
+      config:
+         schema: CAREMONGER
+   properties:
+      hdi-container-name: ${service-name}
+   type: com.sap.xs.hdi-container
