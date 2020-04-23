@@ -1,2 +1,6 @@
-VIEW "caremonger.caremonger_db::v_order_details" AS
-SELECT * FROM "caremonger.caremonger_db::data.t_incoming_information";
+VIEW "caremonger.caremonger_db::v_order_details" ("REQUESTER_NAME", "REQUESTER_PHONE_NUMBER", "REQUEST_DESCRIPTION",
+		"REQUEST_TYPE", "REQUESTER_LOCATION", "REQUEST_TIME", 
+		"CRITICALITY", "REQUEST_STATUS") AS
+SELECT "REQUESTER_NAME", "REQUESTER_PHONE_NUMBER", "REQUEST_DESCRIPTION",
+		"REQUEST_TYPE", "REQUESTER_LOCATION", "REQUEST_TIME", 
+		"CRITICALITY", "REQUEST_STATUS" FROM "caremonger.caremonger_db::data.t_incoming_information";

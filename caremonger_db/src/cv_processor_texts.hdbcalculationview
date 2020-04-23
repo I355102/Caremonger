@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="caremonger.caremonger_db::cv_processor_texts" applyPrivilegeType="NONE" dataCategory="DIMENSION" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false" runWithInvokerPrivileges="true">
+<descriptions defaultDescription="cv_processor_texts"/>
+<localVariables>
+  <variable id="IN_ORDER_ID" parameter="true">
+    <descriptions defaultDescription=""/>
+    <variableProperties datatype="INTEGER" mandatory="true" defaultValue="-1">
+      <valueDomain type="empty"/>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+</localVariables>
+<variableMappings/>
+<dataSources>
+  <DataSource id="caremonger.caremonger_db::data.t_processor_text">
+    <resourceUri>caremonger.caremonger_db::data.t_processor_text</resourceUri>
+  </DataSource>
+  <DataSource id="caremonger.caremonger_db::data.t_incoming_information">
+    <resourceUri>caremonger.caremonger_db::data.t_incoming_information</resourceUri>
+  </DataSource>
+  <DataSource id="caremonger.caremonger_db::data.t_processor">
+    <resourceUri>caremonger.caremonger_db::data.t_processor</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <viewAttributes>
+      <viewAttribute id="TEXT_ID"/>
+      <viewAttribute id="ORDER_ID"/>
+      <viewAttribute id="PROCESSOR_ID"/>
+      <viewAttribute id="PROCESSOR_TEXT"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="caremonger.caremonger_db::data.t_processor_text"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="ORDER_ID"/>
+      <viewAttribute id="REQUESTER_NAME"/>
+      <viewAttribute id="REQUESTER_PHONE_NUMBER"/>
+      <viewAttribute id="REQUEST_DESCRIPTION"/>
+      <viewAttribute id="REQUEST_TYPE"/>
+      <viewAttribute id="REQUESTER_LOCATION"/>
+      <viewAttribute id="REQUEST_TIME"/>
+      <viewAttribute id="CRITICALITY"/>
+      <viewAttribute id="REQUEST_STATUS"/>
+      <viewAttribute id="PROCESSOR_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="caremonger.caremonger_db::data.t_incoming_information"/>
+    <filter>&quot;ORDER_ID&quot;='$$IN_ORDER_ID$$'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <viewAttributes>
+      <viewAttribute id="PROCESSOR_ID_1"/>
+      <viewAttribute id="FIRST_NAME"/>
+      <viewAttribute id="LAST_NAME"/>
+      <viewAttribute id="ADDRESS"/>
+      <viewAttribute id="PIN_CODE"/>
+      <viewAttribute id="MOBILE_NUMBER"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="caremonger.caremonger_db::data.t_processor">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PROCESSOR_ID_1" source="PROCESSOR_ID"/>
+    </input>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="ORDER_ID"/>
+      <viewAttribute id="REQUESTER_NAME"/>
+      <viewAttribute id="REQUESTER_PHONE_NUMBER"/>
+      <viewAttribute id="REQUEST_DESCRIPTION"/>
+      <viewAttribute id="REQUEST_TYPE"/>
+      <viewAttribute id="REQUESTER_LOCATION"/>
+      <viewAttribute id="REQUEST_TIME"/>
+      <viewAttribute id="CRITICALITY"/>
+      <viewAttribute id="REQUEST_STATUS"/>
+      <viewAttribute id="PROCESSOR_ID"/>
+      <viewAttribute id="PROCESSOR_TEXT"/>
+      <viewAttribute hidden="true" id="JOIN$ORDER_ID$ORDER_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Projection_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PROCESSOR_TEXT" source="PROCESSOR_TEXT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$ORDER_ID$ORDER_ID" source="ORDER_ID"/>
+    </input>
+    <input node="Projection_2">
+      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUESTER_NAME" source="REQUESTER_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUESTER_PHONE_NUMBER" source="REQUESTER_PHONE_NUMBER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_DESCRIPTION" source="REQUEST_DESCRIPTION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_TYPE" source="REQUEST_TYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUESTER_LOCATION" source="REQUESTER_LOCATION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_TIME" source="REQUEST_TIME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CRITICALITY" source="CRITICALITY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_STATUS" source="REQUEST_STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PROCESSOR_ID" source="PROCESSOR_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$ORDER_ID$ORDER_ID" source="ORDER_ID"/>
+    </input>
+    <joinAttribute name="JOIN$ORDER_ID$ORDER_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" cardinality="CN_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="ORDER_ID"/>
+      <viewAttribute id="REQUESTER_NAME"/>
+      <viewAttribute id="REQUESTER_PHONE_NUMBER"/>
+      <viewAttribute id="REQUEST_DESCRIPTION"/>
+      <viewAttribute id="REQUEST_TYPE"/>
+      <viewAttribute id="REQUESTER_LOCATION"/>
+      <viewAttribute id="REQUEST_TIME"/>
+      <viewAttribute id="CRITICALITY"/>
+      <viewAttribute id="REQUEST_STATUS"/>
+      <viewAttribute id="PROCESSOR_ID"/>
+      <viewAttribute id="PROCESSOR_TEXT"/>
+      <viewAttribute id="FIRST_NAME"/>
+      <viewAttribute id="LAST_NAME"/>
+      <viewAttribute id="ADDRESS"/>
+      <viewAttribute id="PIN_CODE"/>
+      <viewAttribute id="MOBILE_NUMBER"/>
+      <viewAttribute hidden="true" id="JOIN$PROCESSOR_ID_1$PROCESSOR_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Projection_3">
+      <mapping xsi:type="Calculation:AttributeMapping" target="FIRST_NAME" source="FIRST_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LAST_NAME" source="LAST_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ADDRESS" source="ADDRESS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PIN_CODE" source="PIN_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MOBILE_NUMBER" source="MOBILE_NUMBER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PROCESSOR_ID_1$PROCESSOR_ID" source="PROCESSOR_ID_1"/>
+    </input>
+    <input node="Join_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUESTER_NAME" source="REQUESTER_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUESTER_PHONE_NUMBER" source="REQUESTER_PHONE_NUMBER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_DESCRIPTION" source="REQUEST_DESCRIPTION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_TYPE" source="REQUEST_TYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUESTER_LOCATION" source="REQUESTER_LOCATION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_TIME" source="REQUEST_TIME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CRITICALITY" source="CRITICALITY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_STATUS" source="REQUEST_STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PROCESSOR_ID" source="PROCESSOR_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PROCESSOR_TEXT" source="PROCESSOR_TEXT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PROCESSOR_ID_1$PROCESSOR_ID" source="PROCESSOR_ID"/>
+    </input>
+    <joinAttribute name="JOIN$PROCESSOR_ID_1$PROCESSOR_ID"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_2">
+  <attributes>
+    <attribute id="ORDER_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ORDER_ID"/>
+      <keyMapping columnObjectName="Join_2" columnName="ORDER_ID"/>
+    </attribute>
+    <attribute id="REQUESTER_NAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQUESTER_NAME"/>
+      <keyMapping columnObjectName="Join_2" columnName="REQUESTER_NAME"/>
+    </attribute>
+    <attribute id="REQUESTER_PHONE_NUMBER" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQUESTER_PHONE_NUMBER"/>
+      <keyMapping columnObjectName="Join_2" columnName="REQUESTER_PHONE_NUMBER"/>
+    </attribute>
+    <attribute id="REQUEST_DESCRIPTION" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQUEST_DESCRIPTION"/>
+      <keyMapping columnObjectName="Join_2" columnName="REQUEST_DESCRIPTION"/>
+    </attribute>
+    <attribute id="REQUEST_TYPE" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQUEST_TYPE"/>
+      <keyMapping columnObjectName="Join_2" columnName="REQUEST_TYPE"/>
+    </attribute>
+    <attribute id="REQUESTER_LOCATION" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQUESTER_LOCATION"/>
+      <keyMapping columnObjectName="Join_2" columnName="REQUESTER_LOCATION"/>
+    </attribute>
+    <attribute id="REQUEST_TIME" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQUEST_TIME"/>
+      <keyMapping columnObjectName="Join_2" columnName="REQUEST_TIME"/>
+    </attribute>
+    <attribute id="CRITICALITY" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CRITICALITY"/>
+      <keyMapping columnObjectName="Join_2" columnName="CRITICALITY"/>
+    </attribute>
+    <attribute id="REQUEST_STATUS" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQUEST_STATUS"/>
+      <keyMapping columnObjectName="Join_2" columnName="REQUEST_STATUS"/>
+    </attribute>
+    <attribute id="PROCESSOR_ID" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PROCESSOR_ID"/>
+      <keyMapping columnObjectName="Join_2" columnName="PROCESSOR_ID"/>
+    </attribute>
+    <attribute id="PROCESSOR_TEXT" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PROCESSOR_TEXT"/>
+      <keyMapping columnObjectName="Join_2" columnName="PROCESSOR_TEXT"/>
+    </attribute>
+    <attribute id="FIRST_NAME" order="12" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FIRST_NAME"/>
+      <keyMapping columnObjectName="Join_2" columnName="FIRST_NAME"/>
+    </attribute>
+    <attribute id="LAST_NAME" order="13" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="LAST_NAME"/>
+      <keyMapping columnObjectName="Join_2" columnName="LAST_NAME"/>
+    </attribute>
+    <attribute id="ADDRESS" order="14" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ADDRESS"/>
+      <keyMapping columnObjectName="Join_2" columnName="ADDRESS"/>
+    </attribute>
+    <attribute id="PIN_CODE" order="15" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PIN_CODE"/>
+      <keyMapping columnObjectName="Join_2" columnName="PIN_CODE"/>
+    </attribute>
+    <attribute id="MOBILE_NUMBER" order="16" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="MOBILE_NUMBER"/>
+      <keyMapping columnObjectName="Join_2" columnName="MOBILE_NUMBER"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/></logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="328" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="496"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="302" y="496"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="395" y="356"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="118" y="356"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="328" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="102"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

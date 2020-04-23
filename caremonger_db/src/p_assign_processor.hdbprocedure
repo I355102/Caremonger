@@ -1,0 +1,16 @@
+PROCEDURE "caremonger.caremonger_db::p_assign_processor" (
+	IN order_id INTEGER,
+	IN processor_id VARCHAR(30),
+	OUT message VARCHAR(100))
+LANGUAGE SQLSCRIPT
+SQL SECURITY INVOKER
+AS
+BEGIN
+message = 'Update failed!';
+
+UPDATE "caremonger.caremonger_db::data.t_incoming_information" 
+SET PROCESSOR_ID = :processor_id
+WHERE ORDER_ID = :order_id;
+
+message = 'Update successful!';
+END

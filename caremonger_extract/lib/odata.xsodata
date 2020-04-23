@@ -1,3 +1,6 @@
 service {
 	"caremonger.caremonger_db::v_order_details" as "order_details" keys generate local "ID";
+	
+	"caremonger.caremonger_db::cv_processor_texts" as "processor_texts" keys generate local "ID"
+	parameters via entity;
 }

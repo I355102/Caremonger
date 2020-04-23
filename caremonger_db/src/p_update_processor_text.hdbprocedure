@@ -1,6 +1,7 @@
 PROCEDURE "caremonger.caremonger_db::p_update_processor_text" (
 	IN order_id INTEGER,
-	IN input_text VARCHAR(5000),
+	IN processor_id INTEGER,
+	IN processor_text VARCHAR(5000),
 	OUT message VARCHAR(100))
 LANGUAGE SQLSCRIPT
 SQL SECURITY INVOKER
@@ -8,9 +9,9 @@ AS
 BEGIN
 message = 'Update failed!';
 
-UPDATE "caremonger.caremonger_db::data.t_incoming_information" 
-SET PROCESSOR_TEXT = :input_text
-WHERE ORDER_ID = :order_id;
+INSERT into "caremonger.caremonger_db::data.t_processor_text"
+("ORDER_ID", "PROCESSOR_ID", "PROCESSOR_TEXT")
+VALUES(:order_id, :processor_id, :processor_text);
 
 message = 'Update successful!';
 END

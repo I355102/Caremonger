@@ -8,7 +8,7 @@ var port  = process.env.PORT || 3000;
 var options = {
 	anonymous : true, // remove to authenticate calls
 	auditLog : { logToConsole: true }, // change to auditlog service for productive scenarios
-	redirectUrl : "/text_extractor.xsjs"
+	redirectUrl : "/index.xsjs"
 };
 
 //options = xsjs.extend(options, xsenv.getServices({ hana: {tag: "hana"} }));
