@@ -1,0 +1,16 @@
+PROCEDURE "caremonger.caremonger_db::p_update_request_status" (
+	IN order_id INTEGER,
+	IN request_status VARCHAR(30),
+	OUT message VARCHAR(100))
+LANGUAGE SQLSCRIPT
+SQL SECURITY INVOKER
+AS
+BEGIN
+message = 'Update failed!';
+
+UPDATE "caremonger.caremonger_db::data.t_incoming_information" 
+SET REQUEST_STATUS = :request_status
+WHERE ORDER_ID = :order_id;
+
+message = 'Update successful!';
+END

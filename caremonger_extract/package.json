@@ -1,7 +1,9 @@
 {
   "dependencies": {
     "@sap/xsenv": "^2.0.0",
-    "@sap/xsjs": "^5.2.0"
+    "@sap/xsjs": "^5.2.0",
+    "sapcai": "^4.1.0",
+    "superagent": "^5.2.2"
   },
   "description": "my description",
   "devDependencies": {
