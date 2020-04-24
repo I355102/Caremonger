@@ -14,7 +14,29 @@
 				text="{i18n>worklistTitle}"
 				level="H2"/>
 		</semantic:titleHeading>
-		
+		<VBox id="idVBox">
+		<FacetFilter
+			id="idFacetFilter"
+			type="Light"
+			showPersonalization="true"
+			showReset="true"
+			reset="handleFacetFilterReset"
+			lists="{/ProductCollectionStats/Filters}">
+				<FacetFilterList
+					title="{type}"
+					key="{key}"
+					mode="MultiSelect"
+					listClose="handleListClose"
+					items="{path: 'values', templateShareable: true}" >
+						<FacetFilterItem
+							text="{text}"
+							key="{key}"
+							count="{data}" />
+				</FacetFilterList>
+		</FacetFilter>
+
+			<!-- A demo table will be appended here -->
+	</VBox>
 		<semantic:content>
 			<Table
 				id="table"
@@ -46,6 +68,9 @@
 					<Column id="unitNumberColumn1" >
 						<Text text="{i18n>tableColumnTitle1}" id="unitNumberColumnTitle1"/>
 					</Column>
+					<Column id="unitNumberColumn6" hAlign="End">
+						<Text text="{i18n>tableColumnTitle6}" id="unitNumberColumnTitle6"/>
+					</Column>
 					<Column id="unitNumberColumn2" >
 						<Text text="{i18n>tableColumnTitle2}" id="unitNumberColumnTitle2"/>
 					</Column>
@@ -68,15 +93,15 @@
 							<ObjectIdentifier
 								title="{TableData>REQUESTER_NAME}"/>
 							<ObjectIdentifier
+								title="{TableData>REQUESTER_PHONE_NUMBER}"/>
+							<ObjectIdentifier
 								title="{TableData>REQUEST_DESCRIPTION}"/>
 							<ObjectIdentifier
 								title="{TableData>REQUEST_TYPE}"/>
 							<ObjectIdentifier
 								title="{TableData>CRITICALITY}"/>
 							<ObjectStatus 
-								text="{TableData>REQUEST_STATUS}"/>
-								<!--state="{path:'TableData>REQUEST_STATUS', formatter:'utils.formatter.getOrderStatus'}"-->
-								
+								text="{TableData>REQUEST_STATUS}" />
 										  
 						</cells>
 					</ColumnListItem>

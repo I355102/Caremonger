@@ -8,7 +8,6 @@ sap.ui.define([
 
 	return BaseController.extend("caremonger.caremonger_ui.controller.Main", {
 		onInit: function () {
-			debugger;
 			var oModel = new sap.ui.model.odata.ODataModel("https://lvhmfpf6jpgn677waremonger-service.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
 			var jModel = new sap.ui.model.json.JSONModel({});
 			this.getView().setModel(jModel, "TableData");
@@ -25,8 +24,8 @@ sap.ui.define([
             
 		},
 		
-		_showObject : function (oItem) {
-			this.getRouter().navTo("object");
+		_showObject : function (oItem,title) {
+			this.getRouter().navTo("object",{id:JSON.stringify(title)});
 			
 		
 			
@@ -63,7 +62,8 @@ sap.ui.define([
 		
 		onPress : function (oEvent) {
 			// The source is the list item that got pressed
-			this._showObject(oEvent.getSource());
+			var title = oEvent.getSource().getCells()[0].getTitle();
+			this._showObject(oEvent.getSource(),title);
 		}
 		
 	});

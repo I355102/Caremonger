@@ -4,6 +4,24 @@ var cai_credentials = xsenv.getServices({ cai: {  name: "CAI_TEXT_ANALYZER" } })
 
 const request = $.require('superagent');
 var url = cai_credentials.url + 'train/v2/request';
+
+var data = [{
+		"REQUESTER_NAME": "Sahil", "REQUESTER_PHONE_NUMBER": "9991282936", "REQUEST_DESCRIPTION": "Accident occured in Hoodi",
+		"REQUEST_TYPE": "SOS", "REQUESTER_LOCATION": "Hoodi", "REQUEST_TIME": "2020-04-22 16:56:10", "CRITICALITY": "Very high"
+		}, {
+		"REQUESTER_NAME": "Sreedevi", "REQUESTER_PHONE_NUMBER": "9991282936", "REQUEST_DESCRIPTION": "Accident occured in Hoodi",
+		"REQUEST_TYPE": "SOS", "REQUESTER_LOCATION": "Hoodi", "REQUEST_TIME": "2020-04-22 16:56:10", "CRITICALITY": "Very high"
+		}, {
+		"REQUESTER_NAME": "Sreedevi", "REQUESTER_PHONE_NUMBER": "9991282936", "REQUEST_DESCRIPTION": "Accident occured in Hoodi",
+		"REQUEST_TYPE": "SOS", "REQUESTER_LOCATION": "Hoodi", "REQUEST_TIME": "2020-04-22 16:56:10", "CRITICALITY": "Very high"
+		}, {
+		"REQUESTER_NAME": "Sreedevi", "REQUESTER_PHONE_NUMBER": "9991282936", "REQUEST_DESCRIPTION": "Accident occured in Hoodi",
+		"REQUEST_TYPE": "SOS", "REQUESTER_LOCATION": "Hoodi", "REQUEST_TIME": "2020-04-22 16:56:10", "CRITICALITY": "Very high"
+		}, {
+		"REQUESTER_NAME": "Sreedevi", "REQUESTER_PHONE_NUMBER": "9991282936", "REQUEST_DESCRIPTION": "Accident occured in Hoodi",
+		"REQUEST_TYPE": "SOS", "REQUESTER_LOCATION": "Hoodi", "REQUEST_TIME": "2020-04-22 16:56:10", "CRITICALITY": "Very high"
+		}]; 
+
 request
   .post(url)
   .send({

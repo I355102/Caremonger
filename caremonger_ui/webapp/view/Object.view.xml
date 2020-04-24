@@ -1,25 +1,97 @@
 <mvc:View
+	height="100%"
 	controllerName="caremonger.caremonger_ui.controller.Object"
-	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.f.semantic"
-	xmlns:form="sap.ui.layout.form"
-	xmlns:l="sap.ui.layout">
+	xmlns:m="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns="sap.suite.ui.commons.networkgraph"
+	xmlns:layout="sap.suite.ui.commons.networkgraph.layout"
+	xmlns:f="sap.ui.layout.form"
+		>
 
-		<semantic:SemanticPage
-		id="page2"
-		headerPinnable="false"
-		toggleHeaderOnTitleClick="false">
-
-		<semantic:titleHeading>
-			<Title
-				text="{i18n>worklistTitle}"
-				level="H2"/>
-		</semantic:titleHeading>
-		
-		<semantic:content>
-			
-		</semantic:content>
-
-	</semantic:SemanticPage>
+<m:App id = "idApp">
+<m:Page showNavButton="true" navButtonPress="onNavBack">
+<m:VBox class="sapUiSmallMargin">
+		<f:SimpleForm id="SimpleFormDisplay354wideDual"
+	
+			editable="false"
+			layout="ResponsiveGridLayout"
+			title="Details"
+			labelSpanXL="4"
+			labelSpanL="3"
+			labelSpanM="4"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanXL="0"
+			emptySpanL="4"
+			emptySpanM="0"
+			emptySpanS="0"
+			columnsXL="2"
+			columnsL="1"
+			columnsM="1"
+			singleContainerFullSize="false" >
+			<f:content>
+				<core:Title text="Request Details" />
+				<m:Label text="Requester Name" />
+				<m:Text  text="Sree" />
+				<!--<m:Text  text="{TableData>REQUESTER_NAME}" />-->
+				<m:Label text="Phone Number" />
+				<m:Text  text="9994146345" />
+				<!--<m:Text  text="{TableData>REQUESTER_PHONE_NUMBER}" />-->
+				<m:Label text="Description" />
+				<m:Text  text="Accident in Hoodi" />
+				<!--<m:Text  text="{TableData>REQUESTER_NAME}" />-->
+				<m:Label text="Request Type" />
+				<m:Text  text="Accident" />
+				<m:Label text="Location" />
+				<m:Text  text="Hoodi" />
+				<m:Label text="Time" />
+				<m:Text  text="21-04-2020" />
+				<m:Label text="Criticality" />
+				<m:Text  text="Very High" />
+				<m:Label text="Status" />
+				<m:Text  text="Yet to be assigned" />
+				
+				<core:Title text="Task Status" />
+					<!--<Label text="Clearing with Customer" />-->
+					<!--<CheckBox text="Option 2" selected="true">-->
+					<!--	<layoutData>-->
+					<!--		<l:GridData linebreak="true"-->
+					<!--			indentL="4"-->
+					<!--			indentM="4" />-->
+					<!--	</layoutData>-->
+					<!--</CheckBox>-->
+					<m:VBox>
+					<m:CheckBox text="To be assigned" id="cb1" selected="false" />
+					<m:CheckBox text="Blocked" id="cb2"  selected="false " />
+					<m:CheckBox text="In Process" id="cb3" selected="false" />
+					<m:CheckBox text="Processed" id="cb4" selected="false" />
+					<m:CheckBox text="Closed" id="cb5" selected="false" />
+					<m:CheckBox text="False" id="cb6" selected="false" />
+					</m:VBox>
+				
+				<core:Title text="Processor Details" />
+				<m:Label text="Name" />
+				<m:Text text="Sahil" />
+				<m:Label text="Contact" />
+				<m:Text text="+91987364773" />
+			    <m:Label text="Address" />
+			    <m:Text text="Whitefield" />
+				<m:Label text="Pincode" />
+				<m:Text text="364773" />
+				<m:Label text="Processor Comment" />
+				<m:Text text="Not able to complete the task" />
+				</f:content>
+				
+				
+			</f:SimpleForm>
+	</m:VBox>
+	<m:footer>
+			<m:Toolbar>
+				<m:ToolbarSpacer/>
+				<m:Button  type="Emphasized" class="sapUiSmallMarginBottom" width="230px" text="SAVE" press="onSave"/>
+			</m:Toolbar>
+		</m:footer>
+</m:Page>
+</m:App>
 </mvc:View>

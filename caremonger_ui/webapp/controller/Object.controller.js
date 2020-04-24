@@ -12,60 +12,46 @@ sap.ui.define([
 	return BaseController.extend("caremonger.caremonger_ui.controller.Object", {
 
 	
-		onInit: function () {
+		onInit: function (oEvent) {
+			this.sid = null;
 			this.getRouter().getRoute("object").attachPatternMatched(this._onObjectMatched, this);
-			var oModel = new sap.ui.model.odata.ODataModel("https://lvhmfpf6jpgn677waremonger-service.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
+			var oModel = new sap.ui.model.odata.ODataModel("https://stmkib0ixdfgljxharemonger-extract.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
 			debugger;
 	     	this.getView().setModel(oModel);
 	     	
 		},
 		
 		_onObjectMatched : function (oEvent) {
-		//	var sObjectId =  oEvent.getParameter("arguments").objectId;
-		console.log("hi");
+			this.sid = oEvent;
+		
+			var oModel = new sap.ui.model.odata.ODataModel("https://lvhmfpf6jpgn677waremonger-service.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
+			var jModel = new sap.ui.model.json.JSONModel({});
+			this.getView().setModel(jModel, "TableData");
+	     	this.getView().setModel(oModel);
+			oModel.read("/processor_texts", {
+           
+             success: function(oData){
+                         
+                         var model1 = this.getView().getModel("TableData");
+                         model1.setData(oData);
+                         this.getView().setModel(model1, "TableData");
+                      }.bind(this)
+            });
+		
 			
 		},
 	
-
-		/* =========================================================== */
-		/* event handlers                                              */
-		/* =========================================================== */
-
-
-		/**
-		 * Event handler  for navigating back.
-		 * It there is a history entry we go one step back in the browser history
-		 * If not, it will replace the current entry of the browser history with the worklist route.
-		 * @public
-		 */
 		onNavBack : function() {
 			var sPreviousHash = History.getInstance().getPreviousHash();
 
 			if (sPreviousHash !== undefined) {
 				history.go(-1);
 			} else {
-				this.getRouter().navTo("worklist", {}, true);
+				this.getRouter().navTo("main", {}, true);
 			}
 		},
 
-		/* =========================================================== */
-		/* internal methods                                            */
-		/* =========================================================== */
-
-		/**
-		 * Binds the view to the object path.
-		 * @function
-		 * @param {sap.ui.base.Event} oEvent pattern match event in route 'object'
-		 * @private
-		 */
 	
-
-		/**
-		 * Binds the view to the object path.
-		 * @function
-		 * @param {string} sObjectPath path to the object to be bound
-		 * @private
-		 */
 		_bindView : function (sObjectPath) {
 			var oViewModel = this.getModel("objectView"),
 				oDataModel = this.getModel();
@@ -123,6 +109,14 @@ sap.ui.define([
 		 * @function
 		 * @param {sap.ui.base.Event} oEvent object of the user input
 		 */
+		onClick1 : function(oEvent)
+		{
+			statusModel = this.getModel("TableData");
+			var status = statusModel.getData().status;
+			
+			
+		},
+		
 		onPost: function (oEvent) {
 			var oFormat = DateFormat.getDateTimeInstance({style: "medium"});
 			var sDate = oFormat.format(new Date());

@@ -39,11 +39,17 @@ sap.ui.define([
 			return this.getView().setModel(oModel, sName);
 		},
 
-		/**
-		 * Getter for the resource bundle.
-		 * @public
-		 * @returns {sap.ui.model.resource.ResourceModel} the resourceModel of the component
-		 */
+		onNavBack: function(oEvent) {
+			var oHistory, sPreviousHash;
+			oHistory = History.getInstance();
+			sPreviousHash = oHistory.getPreviousHash();
+			if (sPreviousHash !== undefined) {
+				window.history.go(-1);
+			} else {
+				this.getOwnerComponent().getRouter().navTo("RouteLogin", {}, true);
+			}
+		},
+		
 		getResourceBundle : function () {
 			return this.getOwnerComponent().getModel("i18n").getResourceBundle();
 		},
