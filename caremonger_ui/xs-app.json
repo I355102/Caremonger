@@ -1,0 +1,23 @@
+{
+  "welcomeFile": "/caremonger_ui/index.html",
+  "authenticationMethod": "route",
+  "logout": {
+    "logoutEndpoint": "/do/logout"
+  },
+  "routes": [
+    {
+	"source": "(.*)(.xsjs)",
+	"destination": "caremonger_service",
+	"csrfProtection": false
+	}, 
+	{
+	  "source": "(.*)(.xsodata)/(.*)",
+	  "destination": "caremonger_service"
+	},
+	{
+      "source": "^/caremonger_ui/(.*)$",
+      "target": "$1",
+      "localDir": "webapp"
+    }
+  ]
+}

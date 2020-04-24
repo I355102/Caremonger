@@ -1,0 +1,25 @@
+<mvc:View
+	controllerName="caremonger.caremonger_ui.controller.Object"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout">
+
+		<semantic:SemanticPage
+		id="page2"
+		headerPinnable="false"
+		toggleHeaderOnTitleClick="false">
+
+		<semantic:titleHeading>
+			<Title
+				text="{i18n>worklistTitle}"
+				level="H2"/>
+		</semantic:titleHeading>
+		
+		<semantic:content>
+			
+		</semantic:content>
+
+	</semantic:SemanticPage>
+</mvc:View>

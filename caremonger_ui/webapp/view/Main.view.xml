@@ -1,0 +1,89 @@
+<mvc:View
+	controllerName="caremonger.caremonger_ui.controller.Main"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic">
+<App id = "idApp">
+	<semantic:SemanticPage
+		id="page"
+		headerPinnable="false"
+		toggleHeaderOnTitleClick="false">
+
+		<semantic:titleHeading>
+			<Title
+				text="{i18n>worklistTitle}"
+				level="H2"/>
+		</semantic:titleHeading>
+		
+		<semantic:content>
+			<Table
+				id="table"
+				width="auto"
+				items= "{path: 'TableData>/results' }">
+
+				<headerToolbar>
+					<OverflowToolbar>
+					<Title
+							id="tableHeader"
+							text="Title"
+							level="H3"/>
+						<ToolbarSpacer />
+						<SearchField
+							id="searchField"
+							tooltip="{i18n>worklistSearchTooltip}"
+							search=".onSearch">
+							<layoutData>
+								<OverflowToolbarLayoutData
+									maxWidth="200px"
+									priority="NeverOverflow"/>
+							</layoutData>
+						</SearchField>
+						</OverflowToolbar>
+				</headerToolbar>
+
+				<columns>
+					
+					<Column id="unitNumberColumn1" >
+						<Text text="{i18n>tableColumnTitle1}" id="unitNumberColumnTitle1"/>
+					</Column>
+					<Column id="unitNumberColumn2" >
+						<Text text="{i18n>tableColumnTitle2}" id="unitNumberColumnTitle2"/>
+					</Column>
+					<Column id="unitNumberColumn3">
+						<Text text="{i18n>tableColumnTitle3}" id="unitNumberColumnTitle3"/>
+					</Column>
+					<Column id="unitNumberColumn4" hAlign="End">
+						<Text text="{i18n>tableColumnTitle4}" id="unitNumberColumnTitle4"/>
+					</Column>
+					<Column id="unitNumberColumn5" hAlign="End">
+						<Text text="{i18n>tableColumnTitle5}" id="unitNumberColumnTitle5"/>
+					</Column>
+				</columns>
+
+				<items>
+					<ColumnListItem
+						type="Navigation"
+						press=".onPress">
+						<cells>
+							<ObjectIdentifier
+								title="{TableData>REQUESTER_NAME}"/>
+							<ObjectIdentifier
+								title="{TableData>REQUEST_DESCRIPTION}"/>
+							<ObjectIdentifier
+								title="{TableData>REQUEST_TYPE}"/>
+							<ObjectIdentifier
+								title="{TableData>CRITICALITY}"/>
+							<ObjectStatus 
+								text="{TableData>REQUEST_STATUS}"/>
+								<!--state="{path:'TableData>REQUEST_STATUS', formatter:'utils.formatter.getOrderStatus'}"-->
+								
+										  
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+
+	</semantic:SemanticPage>
+</App>
+</mvc:View>

@@ -21,11 +21,11 @@ try {
 }
 
 // configure UAA
-try {
-	options = Object.assign(options, xsenv.getServices({ uaa: {tag: "xsuaa"} }));
-} catch (err) {
-	console.log("[WARN]", err.message);
-}
+// try {
+// 	options = Object.assign(options, xsenv.getServices({ uaa: {tag: "xsuaa"} }));
+// } catch (err) {
+// 	console.log("[WARN]", err.message);
+// }
 
 // start server
 xsjs(options).listen(port);
