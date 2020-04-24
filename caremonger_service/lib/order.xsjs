@@ -59,6 +59,26 @@ function updateProcessorText(order) {
 	
 }
 
+function updateCriticality(order) {
+	var conn = $.hdb.getConnection();
+	var output = JSON.stringify(order);
+	var fnCreate = conn.loadProcedure("caremonger.caremonger_db::p_update_criticality");
+	
+	var result = fnCreate({ORDER_ID: order.ORDER_ID, CRITICALITY: order.CRITICALITY});
+		
+	conn.commit();
+	conn.close();
+
+	if(result){
+		console.log("Order criticality update successful");
+		return {body: result, status: $.net.http.CREATED}; 
+	} else {
+		console.log("Order criticality update failed");
+		return {body: result, status: $.net.http.BAD_REQUEST}; 
+	}
+	
+}
+
 var body = $.request.body.asString();
 console.log("This is body: " + body);
 var payload = JSON.parse(body);
@@ -70,6 +90,8 @@ if(callingFunc === 'createOrder') {
 	output = updateRequestStatus(payload);
 } else if(callingFunc === 'updateProcessorText') {
 	output = updateProcessorText(payload);
+} else if(callingFunc === 'updateCriticality') {
+	output = updateCriticality(payload);
 } else {
 	console.log("Wrong call!");
 	output = {body: {}, status: $.net.http.BAD_REQUEST}; 

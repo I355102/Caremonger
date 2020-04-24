@@ -1,0 +1,16 @@
+PROCEDURE "caremonger.caremonger_db::p_update_criticality" (
+	IN order_id INTEGER,
+	IN criticality VARCHAR(30),
+	OUT message VARCHAR(100))
+LANGUAGE SQLSCRIPT
+SQL SECURITY INVOKER
+AS
+BEGIN
+message = 'Update failed!';
+
+UPDATE "caremonger.caremonger_db::data.t_incoming_information" 
+SET CRITICALITY = :criticality
+WHERE ORDER_ID = :order_id;
+
+message = 'Update successful!';
+END
