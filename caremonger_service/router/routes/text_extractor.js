@@ -8,7 +8,7 @@ const hdbext = require("@sap/hdbext");
 
 module.exports = function() {
 	var db;
-	function createOrders(orders) {
+	function createOrders(orders, res) {
 		var client = db;
 		hdbext.loadProcedure(client, null, "caremonger.caremonger_db::p_create_order", function (err, sp) {
 			if (err) {
@@ -26,7 +26,7 @@ module.exports = function() {
 						.send("ERROR: " + err.message.toString());
 					return;
 				}
-				return results;
+				res.send(results);
 			});
 		});
 	}
@@ -110,11 +110,7 @@ module.exports = function() {
 			
 			getOrderInput().then(input=> {
 				if(errorInInput === 0){
-					let output = createOrders(orderInput);
-					res
-					.type("text/plain")
-					.status(200)
-					.send(output.body);
+					createOrders(orderInput, res);
 				}
 			}).catch(err => {
 				console.log(err);
