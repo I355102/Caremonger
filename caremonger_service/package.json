@@ -3,18 +3,25 @@
     "@sap/xsenv": "^2.0.0",
     "@sap/xsjs": "^5.2.0",
     "sapcai": "^4.1.0",
-    "superagent": "^5.2.2"
+    "superagent": "^5.2.2",
+	"express": "^4.16.4",
+	"@sap/hdbext": "^6.1.1",
+	"helmet": "3.21.2"
   },
   "description": "my description",
   "devDependencies": {
-    "@sap/xsjs-test": "^3.0.2"
+    "@sap/xsjs-test": "^3.0.2",
+    "request": "^2.88.0"
   },
   "files": [],
   "main": "server.js",
   "name": "caremonger_extract",
   "scripts": {
-    "start": "node server.js",
-    "test": "node testrun.js"
+	"test-coverage": "node node_modules/jest/bin/jest --coverage --config jest.json",
+	"start": "node server.js",
+	"build": "cds build/all --clean",
+	"deploy": "node node_modules/@sap/hdi-deploy/deploy.js --root gen/db/",
+	"test": "node testrun.js"
   },
   "engines": {
     "node": "10.x"

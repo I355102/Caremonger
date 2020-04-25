@@ -1,17 +1,23 @@
-/*eslint no-console: 0, no-unused-vars: 0*/
+/*eslint no-console: 0, no-unused-vars: 0, no-undef:0, no-process-exit:0*/
+/*eslint-env node, es6 */
 "use strict";
+// process.env['DBCAPI_API_DLL']="node_modules/@sap/hana-client/prebuilt/darwinintel64-xcode7/libdbcapiHDB.dylib";
+const port = process.env.PORT || 3000;
+const server = require("http").createServer();
 
-var xsjs  = require("@sap/xsjs");
-var xsenv = require("@sap/xsenv");
-var port  = process.env.PORT || 3000;
+//Initialize Express App for XSA UAA and HDBEXT Middleware
+const xsenv = require("@sap/xsenv");
+const xsHDBConn = require("@sap/hdbext");
+const express = require("express");
+const helmet = require('helmet');
+var app = express();
 
 var options = {
-	anonymous : true, // remove to authenticate calls
 	auditLog : { logToConsole: true }, // change to auditlog service for productive scenarios
-	redirectUrl : "/index.xsjs"
+	redirectUrl: "/lib/index.js"
 };
 
-//options = xsjs.extend(options, xsenv.getServices({ hana: {tag: "hana"} }));
+var hanaService = xsenv.getServices({ hana: {tag: "hana"} });
 
 // configure HANA
 try {
@@ -20,14 +26,17 @@ try {
 	console.log("[WARN]", err.message);
 }
 
-// configure UAA
-// try {
-// 	options = Object.assign(options, xsenv.getServices({ uaa: {tag: "xsuaa"} }));
-// } catch (err) {
-// 	console.log("[WARN]", err.message);
-// }
+app.use(
+	xsHDBConn.middleware(hanaService.hana),
+	helmet.xssFilter()
+);
+app.disable("x-powered-by");
 
-// start server
-xsjs(options).listen(port);
+//Setup Additonal Node.js Routes
+require("./router")(app, server);
 
-console.log("Server listening on port %d", port);
+//Start the Server 
+server.on("request", app);
+server.listen(port, function () {
+	console.info(`HTTP Server: ${server.address().port}`);
+});
