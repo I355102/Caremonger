@@ -15,10 +15,48 @@ sap.ui.define([
 		onInit: function (oEvent) {
 			this.sid = null;
 			this.getRouter().getRoute("object").attachPatternMatched(this._onObjectMatched, this);
-			var oModel = new sap.ui.model.odata.ODataModel("https://stmkib0ixdfgljxharemonger-extract.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
-			debugger;
+			var oModel = new sap.ui.model.odata.ODataModel("https://1q01ntccb0ionnvuaremonger-service.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
+		 
 	     	this.getView().setModel(oModel);
 	     	
+	     	
+	     		var oData = {
+				"SelectedProduct": "To be assigned",
+				"ProductCollection": [
+					{
+						"ProductId": "To be assigned",
+						"Name": "To be assigned"
+					},
+					{
+						"ProductId": "In-Process",
+						"Name": "In-Process"
+					},
+					{
+						"ProductId": "Processed",
+						"Name": "Processed"
+					},
+					{
+						"ProductId": "Blocked",
+						"Name": "Blocked"
+					},
+					{
+						"ProductId": "Closed",
+						"Name": "Closed"
+					}
+				],
+				"Editable": true,
+				"Enabled": true
+			};
+			var oModel1 = new JSONModel(oData);
+			this.getView().setModel(oModel1);
+	     	
+		},
+			toggleEnabled: function () {
+			var oModel = this.getView().getModel(),
+				oData = oModel.getData();
+
+			oData.Enabled = !oData.Enabled;
+			oModel.setData(oData);
 		},
 		
 		_onObjectMatched : function (oEvent) {
@@ -111,30 +149,30 @@ sap.ui.define([
 		 */
 		onClick1 : function(oEvent)
 		{
-			statusModel = this.getModel("TableData");
-			var status = statusModel.getData().status;
+			// statusModel = this.getModel("TableData");
+			// var status = statusModel.getData().status;
 			
 			
 		},
 		
 		onPost: function (oEvent) {
-			var oFormat = DateFormat.getDateTimeInstance({style: "medium"});
-			var sDate = oFormat.format(new Date());
-			var oObject = this.getView().getBindingContext().getObject();
-			var sValue = oEvent.getParameter("value");
-			var oEntry = {
-				productID: oObject.ProductID,
-				type: "Comment",
-				date: sDate,
-				comment: sValue
-			};
-			// update model
-			var oFeedbackModel = this.getModel("productFeedback");
-			var aEntries = oFeedbackModel.getData().productComments;
-			aEntries.push(oEntry);
-			oFeedbackModel.setData({
-				productComments : aEntries
-			});
+			// var oFormat = DateFormat.getDateTimeInstance({ style: "medium" });
+			// var oDate = new Date();
+			// var sDate = oFormat.format(oDate);
+			// var sValue = oEvent.getParameter("value");
+			// var oEntry = {
+			// 	Author: "Sahil Kumar",
+			// 	Type: "Reply",
+			// 	Date: "" + sDate,
+			// 	Text: sValue
+			// };
+			// // update model
+			// var oModel = this.getView().getModel();
+			// var aEntries = oModel.getData().EntryCollection;
+			// aEntries.unshift(oEntry);
+			// oModel.setData({
+			// 	EntryCollection: aEntries
+			// });
 		}
 
 	});
