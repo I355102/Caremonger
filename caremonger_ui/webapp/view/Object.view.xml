@@ -1,4 +1,4 @@
-<mvc:View controllerName="caremonger.caremonger_ui.controller.Object" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+<mvc:View controllerName="caremonger.caremonger_ui.controller.Object" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
 	xmlns:semantic="sap.f.semantic" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout">
 	<semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false" busy="{objectView>/busy}"
 		busyIndicatorDelay="{objectView>/delay}">
@@ -20,32 +20,36 @@
 		</semantic:headerContent>
 		<semantic:content>
 			<l:VerticalLayout width="100%">
-				<!--<Panel backgroundDesign="Transparent">-->
-				<!--	<ObjectNumber id="objectHeader" unit="Urgency Level" class="sapUiSmallMarginBottom" state="Success" number="50 %"></ObjectNumber>-->
-				<!--	<ObjectStatus class="sapUiSmallMarginBottom" text="Not So Critical" icon="sap-icon://status-positive" state="Success"/>-->
-					<!--<ObjectStatus text="{i18n>ObjectDiscontinuedStatusText}" state="Error" visible="{path:'Discontinued'}"/>--> 
-				<!--	<ProgressIndicator width="300px" class="sapUiSmallMarginBottom" percentValue="50" displayValue="50 %" showValue="true" state="Success"/>-->
-				<!--</Panel> -->
+			
 				<Panel backgroundDesign="Transparent" headerText="{Requester Details}">
 					<content>
 				 
 						<form:SimpleForm minWidth="1024" maxContainerCols="2" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3"
 							emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1">
 							<form:content>
+							
 								<Label text="{i18n>tableColumnTitle1}"/>
-								<Text text="Sree"/>
+								<Text text="Mark"/>
 								<Label text="{i18n>tableColumnTitle6}"/>
-								<Text text="{TableData>REQUESTER_PHONE_NUMBER}"/>
+								<Text text="9832198321"/>
+								<Label text="{i18n>tableColumnTitle2}"/>
+								<Text text="Hello I am Mark Calling from Whitefield. I need insulin Urgently."/>
+								<Label text="{i18n>tableColumnTitle3}"/>
+								<Text text="Medicine"/>
+								<Label text="{i18n>tableColumnTitle4}"/>
+								<Text text="High"/>
+								<Label text="Request Status"></Label>
+								<ComboBox width= "50%" id = "combo">
+								<core:Item key="In Process" text="In Process" />
+								<core:Item key="Completed" text="Completed" />
+								<core:Item key="Closed" text="Closed" />
+								<core:Item key="New" text="New" />
+								</ComboBox>
 								<HBox alignItems="Center">
 									<Label text="Processing Started" class="sapUiTinyMarginEnd"/>
 									<Switch type="AcceptReject" state="true" change="toggleEnabled"/>
 								</HBox>
-								<!--<Select forceSelection="false" selectedKey="{/SelectedProduct}" type="IconOnly" icon="sap-icon://filter" autoAdjustWidth="true"-->
-								<!--	items="{ path: '/ProductCollection', sorter: { path: 'Name' } }">-->
-								<!--	<core:Item key="{ProductId}" text="{Name}"/>-->
-								<!--</Select>-->
-								<!--<Input id="productInput" type="Text" value="Astro Phone 6" placeholder="Enter Product ..." showValueHelp="true" valueHelpOnly="true"-->
-								<!--	valueHelpRequest="handleValueHelp" class="sapUiSmallMarginBottom" width="15rem"/>-->
+								
 							</form:content>
 						</form:SimpleForm>
 					 
@@ -54,9 +58,21 @@
 				<Panel backgroundDesign="Transparent" headerText="Comments">
 					<content>
 						<FeedInput post=".onPost"/>
-						<!--<List id="idCommentsList" noDataText="No Comments" showSeparators="Inner" items="{/EntryCollection}" >-->
-						<List id="idCommentsList" noDataText="No Comments" showSeparators="Inner">
-							<FeedListItem info="{Type}" text="{Text}" convertLinksToAnchorTags="All"/>
+						<List
+                            id="idCommentsList"
+                            noDataText="{i18n>ObjectCommentNoData}"
+                            showSeparators="Inner"
+                            items="{
+                                path: 'productFeedback>/productComments',
+                                sorter: {
+                                    path: 'date',
+                                    descending: true
+                                }
+                            }">
+                            <FeedListItem
+                                info="{productFeedback>type}"
+                                text="{productFeedback>comment}"
+                                timestamp="{productFeedback>date}"/>
 						</List>
 					</content>
 				</Panel>
@@ -64,94 +80,3 @@
 		</semantic:content>
 	</semantic:SemanticPage>
 </mvc:View>
-<!--<mvc:View-->
-<!--	height="100%"-->
-<!--	controllerName="caremonger.caremonger_ui.controller.Object"-->
-<!--	xmlns:mvc="sap.ui.core.mvc"-->
-<!--	xmlns:m="sap.m"-->
-<!--	xmlns:core="sap.ui.core"-->
-<!--	xmlns="sap.suite.ui.commons.networkgraph"-->
-<!--	xmlns:layout="sap.suite.ui.commons.networkgraph.layout"-->
-<!--	xmlns:f="sap.ui.layout.form"-->
-<!--		>-->
-<!--<m:App id = "idApp">-->
-<!--<m:Page showNavButton="true" navButtonPress="onNavBack">-->
-<!--<m:VBox class="sapUiSmallMargin">-->
-<!--		<f:SimpleForm id="SimpleFormDisplay354wideDual"-->
-<!--			editable="false"-->
-<!--			layout="ResponsiveGridLayout"-->
-<!--			title="Details"-->
-<!--			labelSpanXL="4"-->
-<!--			labelSpanL="3"-->
-<!--			labelSpanM="4"-->
-<!--			labelSpanS="12"-->
-<!--			adjustLabelSpan="false"-->
-<!--			emptySpanXL="0"-->
-<!--			emptySpanL="4"-->
-<!--			emptySpanM="0"-->
-<!--			emptySpanS="0"-->
-<!--			columnsXL="2"-->
-<!--			columnsL="1"-->
-<!--			columnsM="1"-->
-<!--			singleContainerFullSize="false" >-->
-<!--			<f:content>-->
-<!--				<core:Title text="Request Details" />-->
-<!--				<m:Label text="Requester Name" />-->
-<!--				<m:Text  text="Sree" />-->
-<!--<m:Text  text="{TableData>REQUESTER_NAME}" />-->
-<!--				<m:Label text="Phone Number" />-->
-<!--				<m:Text  text="9994146345" />-->
-<!--<m:Text  text="{TableData>REQUESTER_PHONE_NUMBER}" />-->
-<!--				<m:Label text="Description" />-->
-<!--				<m:Text  text="Accident in Hoodi" />-->
-<!--<m:Text  text="{TableData>REQUESTER_NAME}" />-->
-<!--				<m:Label text="Request Type" />-->
-<!--				<m:Text  text="Accident" />-->
-<!--				<m:Label text="Location" />-->
-<!--				<m:Text  text="Hoodi" />-->
-<!--				<m:Label text="Time" />-->
-<!--				<m:Text  text="21-04-2020" />-->
-<!--				<m:Label text="Criticality" />-->
-<!--				<m:Text  text="Very High" />-->
-<!--				<m:Label text="Status" />-->
-<!--				<m:Text  text="Yet to be assigned" />-->
-<!--				<core:Title text="Task Status" />-->
-<!--<Label text="Clearing with Customer" />-->
-<!--<CheckBox text="Option 2" selected="true">-->
-<!--	<layoutData>-->
-<!--		<l:GridData linebreak="true"-->
-<!--			indentL="4"-->
-<!--			indentM="4" />-->
-<!--	</layoutData>-->
-<!--</CheckBox>-->
-<!--<m:VBox>-->
-<!--<m:CheckBox text="To be assigned" id="cb1" selected="false" />-->
-<!--<m:CheckBox text="Blocked" id="cb2"  selected="false " />-->
-<!--<m:CheckBox text="In Process" id="cb3" selected="false" />-->
-<!--<m:CheckBox text="Processed" id="cb4" selected="false" />-->
-<!--<m:CheckBox text="Closed" id="cb5" selected="false" />-->
-<!--<m:CheckBox text="False" id="cb6" selected="false" />-->
-<!--</m:VBox>-->
-<!--				<core:Title text="Processor Details" />-->
-<!--				<m:Label text="Name" />-->
-<!--				<m:Text text="Sahil" />-->
-<!--				<m:Label text="Contact" />-->
-<!--				<m:Text text="+91987364773" />-->
-<!--			    <m:Label text="Address" />-->
-<!--			    <m:Text text="Whitefield" />-->
-<!--				<m:Label text="Pincode" />-->
-<!--				<m:Text text="364773" />-->
-<!--				<m:Label text="Processor Comment" />-->
-<!--				<m:Text text="Not able to complete the task" />-->
-<!--				</f:content>-->
-<!--			</f:SimpleForm>-->
-<!--	</m:VBox>-->
-<!--	<m:footer>-->
-<!--			<m:Toolbar>-->
-<!--				<m:ToolbarSpacer/>-->
-<!--				<m:Button  type="Emphasized" class="sapUiSmallMarginBottom" width="230px" text="SAVE" press="onSave"/>-->
-<!--			</m:Toolbar>-->
-<!--		</m:footer>-->
-<!--</m:Page>-->
-<!--</m:App>-->
-<!--</mvc:View>-->
