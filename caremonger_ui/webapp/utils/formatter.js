@@ -1,51 +1,54 @@
 utils = {
 	Formatter: {
-		getStatus: function(odate) {
-			console.log(odate);
-			if(odate===0)
+		getCriticality: function(state) {
+			if(state=="Low")
 			{
-				var status="Request Pending";
+				var status="Success";
 			}
-			else if(odate===1)
+			if(state=="Medium")
 			{
-				var status="Leave Approved";	
+				var status="Warning";
 			}
-			else
+			if(state=="High")
 			{
-				var status="Leave Rejected";		
+				var status="Error";
 			}
 			return status;
 
 		},
-		getState: function(state)
+		getNav : function(orderStatus)
 		{
-			var value;
-			if(state===0)
+			var value= "";
+			
+			if(orderStatus == "In Process")
 			{
-				value="Warning";
+				value = "Navigation"
+				
 			}
-			else if(state===1)
-			{
-				value="Success";
-			}
-			else
-			{
-				value="Error";
-			}
-			return value;
+			
+			
 		},
+		
 		getOrderStatus: function(orderStatus)
 		{
 			var value;
-			if(orderStatus==="To be delivered")
+			if(orderStatus==="Not Assigned")
+			{
+				value="Error";
+			}
+			else if(orderStatus==="In Process")
 			{
 				value="Warning";
 			}
-			else if(orderStatus==="Delivered")
+			else if (orderStatus==="Completed")
 			{
 				value="Success";
 			}
-			else
+			else if (orderStatus==="Closed")
+			{
+				value="Error";
+			}
+			else if (orderStatus==="False")
 			{
 				value="Error";
 			}

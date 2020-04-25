@@ -3,7 +3,7 @@
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:semantic="sap.f.semantic">
-<App id = "idApp">
+	<App id = "idApp">
 	<semantic:SemanticPage
 		id="page"
 		headerPinnable="false"
@@ -14,30 +14,41 @@
 				text="{i18n>worklistTitle}"
 				level="H2"/>
 		</semantic:titleHeading>
-		<VBox id="idVBox">
-		<FacetFilter
-			id="idFacetFilter"
-			type="Light"
-			showPersonalization="true"
-			showReset="true"
-			reset="handleFacetFilterReset"
-			lists="{/ProductCollectionStats/Filters}">
-				<FacetFilterList
-					title="{type}"
-					key="{key}"
-					mode="MultiSelect"
-					listClose="handleListClose"
-					items="{path: 'values', templateShareable: true}" >
-						<FacetFilterItem
-							text="{text}"
-							key="{key}"
-							count="{data}" />
-				</FacetFilterList>
-		</FacetFilter>
-
-			<!-- A demo table will be appended here -->
-	</VBox>
+	
 		<semantic:content>
+		<IconTabBar
+				id="iconTabBar"
+				select=".onQuickFilter"
+				expandable="false"
+				headerBackgroundDesign="Transparent">
+				<items>
+					<IconTabFilter
+						key="all"
+						showAll="true"
+						text="All Requests"/>
+					<IconTabFilter
+						id="Low"
+						key="Low"
+						icon="sap-icon://message-success"
+						iconColor="Positive"
+						count="{worklistView>/inStock}"
+						text="Low"/>
+					<IconTabFilter
+						id="Medium"
+						key="Medium"
+						icon="sap-icon://message-warning"
+						iconColor="Critical"
+						count="{worklistView>/shortage}"
+						text="Medium"/>
+					<IconTabFilter
+						id="High"
+						key="High"
+						icon="sap-icon://message-error"
+						iconColor="Negative"
+						count="{worklistView>/outOfStock}"
+						text="High"/>
+				</items>
+				<content>
 			<Table
 				id="table"
 				width="auto"
@@ -47,7 +58,7 @@
 					<OverflowToolbar>
 					<Title
 							id="tableHeader"
-							text="Title"
+							text="Request Details"
 							level="H3"/>
 						<ToolbarSpacer />
 						<SearchField
@@ -65,19 +76,19 @@
 
 				<columns>
 					
-					<Column id="unitNumberColumn1" >
+					<Column hAlign="Center" id="unitNumberColumn1" level="H3" >
 						<Text text="{i18n>tableColumnTitle1}" id="unitNumberColumnTitle1"/>
 					</Column>
-					<Column id="unitNumberColumn6" hAlign="End">
-						<Text text="{i18n>tableColumnTitle6}" id="unitNumberColumnTitle6"/>
+					<Column hAlign="Center" id="unitNumberColumn6"  >
+						<Text text="{i18n>tableColumnTitle6}" id="unitNumberColumnTitle6" />
 					</Column>
-					<Column id="unitNumberColumn2" >
+					<Column hAlign="Center" id="unitNumberColumn2" >
 						<Text text="{i18n>tableColumnTitle2}" id="unitNumberColumnTitle2"/>
 					</Column>
-					<Column id="unitNumberColumn3">
+					<Column hAlign="Center" id="unitNumberColumn3">
 						<Text text="{i18n>tableColumnTitle3}" id="unitNumberColumnTitle3"/>
 					</Column>
-					<Column id="unitNumberColumn4" hAlign="End">
+					<Column hAlign="Center" id="unitNumberColumn4">
 						<Text text="{i18n>tableColumnTitle4}" id="unitNumberColumnTitle4"/>
 					</Column>
 					<Column id="unitNumberColumn5" hAlign="End">
@@ -86,27 +97,31 @@
 				</columns>
 
 				<items>
-					<ColumnListItem
-						type="Navigation"
-						press=".onPress">
+					<ColumnListItem type= "Navigation" press = ".onPress">
+					<!--type="{path:'TableData>REQUEST_STATUS', formatter:'utils.Formatter.getNav'}"-->
+					<!--	press=".onPress"	-->
+					
 						<cells>
 							<ObjectIdentifier
 								title="{TableData>REQUESTER_NAME}"/>
 							<ObjectIdentifier
-								title="{TableData>REQUESTER_PHONE_NUMBER}"/>
+								title="{TableData>REQUESTER_PHONE_NUMBER}" />
 							<ObjectIdentifier
-								title="{TableData>REQUEST_DESCRIPTION}"/>
+								title="{TableData>REQUEST_DESCRIPTION}" width="30%" tooltip="{TableData>REQUEST_DESCRIPTION}"/>
 							<ObjectIdentifier
 								title="{TableData>REQUEST_TYPE}"/>
-							<ObjectIdentifier
-								title="{TableData>CRITICALITY}"/>
-							<ObjectStatus 
-								text="{TableData>REQUEST_STATUS}" />
+							<ObjectStatus
+								text="{TableData>CRITICALITY}"
+								state="{path:'TableData>CRITICALITY', formatter:'utils.Formatter.getCriticality'}"/>
+							<ObjectStatus text = "{TableData>REQUEST_STATUS}"
+										  state="{path:'TableData>REQUEST_STATUS', formatter:'utils.Formatter.getOrderStatus'}" />
 										  
 						</cells>
 					</ColumnListItem>
 				</items>
 			</Table>
+				</content>
+					</IconTabBar>
 		</semantic:content>
 
 	</semantic:SemanticPage>

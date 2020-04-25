@@ -8,7 +8,7 @@ sap.ui.define([
 
 	return BaseController.extend("caremonger.caremonger_ui.controller.Main", {
 		onInit: function () {
-			var oModel = new sap.ui.model.odata.ODataModel("https://lvhmfpf6jpgn677waremonger-service.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
+			var oModel = new sap.ui.model.odata.ODataModel("https://o9i5tfmc5quzicvfaremonger-service.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
 			var jModel = new sap.ui.model.json.JSONModel({});
 			this.getView().setModel(jModel, "TableData");
 	     	this.getView().setModel(oModel);
@@ -40,6 +40,41 @@ sap.ui.define([
 				oViewModel.setProperty("/tableNoDataText", this.getResourceBundle().getText("worklistNoDataWithSearchText"));
 			}
 		},
+		
+			getFilteredData: function(oData,sKey)			
+				{
+					var arr = [];
+					if(sKey=="all")
+					{
+						return oData;
+					}
+					var res = oData.results;
+						for ( var i=0;i<res.length;i++)
+						{
+							if (res[i].CRITICALITY == sKey)
+							arr.push(res[i]);
+						}
+						return {results : arr};
+					
+				},		
+			
+			onQuickFilter: function(oEvent) {
+				var oModel = new sap.ui.model.odata.ODataModel("https://o9i5tfmc5quzicvfaremonger-service.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
+					var jModel = new sap.ui.model.json.JSONModel({});
+					this.getView().setModel(jModel, "TableData");
+				  	this.getView().setModel(oModel);
+				
+				var sKey = oEvent.getParameter("selectedKey");
+				oModel.read("/order_details", {
+	             success: function(oData){
+	                     var resData = this.getFilteredData(oData,sKey);
+	                     var model1 = this.getView().getModel("TableData");
+                         model1.setData(resData);
+                         this.getView().setModel(model1, "TableData");
+                    	  }.bind(this)
+						});    
+				},      
+			
 		
 		onSearch : function (oEvent) {
 			if (oEvent.getParameters().refreshButtonPressed) {
