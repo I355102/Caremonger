@@ -8,7 +8,9 @@ sap.ui.define([
 
 	return BaseController.extend("caremonger.caremonger_ui.controller.Main", {
 		onInit: function () {
-			var oModel = new sap.ui.model.odata.ODataModel("https://o9i5tfmc5quzicvfaremonger-service.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
+
+			var oModel = new sap.ui.model.odata.ODataModel("https://1q01ntccb0ionnvuaremonger-service.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
+
 			var jModel = new sap.ui.model.json.JSONModel({});
 			this.getView().setModel(jModel, "TableData");
 	     	this.getView().setModel(oModel);
@@ -18,9 +20,29 @@ sap.ui.define([
                          
                          var model1 = this.getView().getModel("TableData");
                          model1.setData(oData);
+                         var res = oData.results;
+                         var count1 = 0;
+                         var count2 = 0;
+                         var count3 = 0;
+                         for(var i=0;i<oData.results.length;i++)
+                         {
+                         	if (res[i].REQUESTER_LOCATION == "Mahadevpura")
+                         		count1++;
+                         	else if (res[i].REQUESTER_LOCATION == "Hoodi")
+                         		count2++;
+                         	else if (res[i].REQUESTER_LOCATION == "Whitefield")
+                         		count3++;
+                         }
+                         
                          this.getView().setModel(model1, "TableData");
+                         this.getView().byId("Hoodi").setCount(count2);
+                         this.getView().byId("Mahadevpura").setCount(count1);
+                         this.getView().byId("Whitefield").setCount(count3);
+                         
                       }.bind(this)
             });
+            
+            
             
 		},
 		
@@ -30,16 +52,7 @@ sap.ui.define([
 		
 			
 		},
-		
-		_applySearch: function(aTableSearchState) {
-			var oTable = this.byId("table"),
-				oViewModel = this.getModel("TableData");
-			oTable.getBinding("items").filter(aTableSearchState, "Application");
-			// changes the noDataText of the list in case there are no filter results
-			if (aTableSearchState.length !== 0) {
-				oViewModel.setProperty("/tableNoDataText", this.getResourceBundle().getText("worklistNoDataWithSearchText"));
-			}
-		},
+
 		
 			getFilteredData: function(oData,sKey)			
 				{
@@ -51,7 +64,7 @@ sap.ui.define([
 					var res = oData.results;
 						for ( var i=0;i<res.length;i++)
 						{
-							if (res[i].CRITICALITY == sKey)
+							if (res[i].REQUESTER_LOCATION == sKey)
 							arr.push(res[i]);
 						}
 						return {results : arr};
@@ -59,7 +72,7 @@ sap.ui.define([
 				},		
 			
 			onQuickFilter: function(oEvent) {
-				var oModel = new sap.ui.model.odata.ODataModel("https://o9i5tfmc5quzicvfaremonger-service.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
+				var oModel = new sap.ui.model.odata.ODataModel("https://1q01ntccb0ionnvuaremonger-service.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
 					var jModel = new sap.ui.model.json.JSONModel({});
 					this.getView().setModel(jModel, "TableData");
 				  	this.getView().setModel(oModel);
@@ -72,29 +85,13 @@ sap.ui.define([
                          model1.setData(resData);
                          this.getView().setModel(model1, "TableData");
                     	  }.bind(this)
-						});    
+						});  
+						
+				
 				},      
 			
 		
-		onSearch : function (oEvent) {
-			if (oEvent.getParameters().refreshButtonPressed) {
-				// Search field's 'refresh' button has been pressed.
-				// This is visible if you select any master list item.
-				// In this case no new search is triggered, we only
-				// refresh the list binding.
-				this.onRefresh();
-			} else {
-				var aTableSearchState = [];
-				var sQuery = oEvent.getParameter("query");
 
-				if (sQuery && sQuery.length > 0) {
-					aTableSearchState = [new Filter("Requester_name", FilterOperator.Contains, sQuery)];
-				}
-				this._applySearch(aTableSearchState);
-			}
-
-		},
-		
 		onPress : function (oEvent) {
 			// The source is the list item that got pressed
 			var title = oEvent.getSource().getCells()[0].getTitle();

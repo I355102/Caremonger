@@ -23,6 +23,9 @@ sap.ui.define([
 			// enable routing
 			this.getRouter().initialize();
 
+			// set the product feedback model
+           this.setModel(models.createCommentsModel(), "productFeedback");
+
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");
 		}

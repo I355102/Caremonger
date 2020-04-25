@@ -16,27 +16,12 @@ utils = {
 			return status;
 
 		},
-		getNav : function(orderStatus)
-		{
-			var value= "";
-			
-			if(orderStatus == "In Process")
-			{
-				value = "Navigation"
-				
-			}
-			
-			
-		},
-		
+
 		getOrderStatus: function(orderStatus)
 		{
 			var value;
-			if(orderStatus==="Not Assigned")
-			{
-				value="Error";
-			}
-			else if(orderStatus==="In Process")
+		
+			if (orderStatus==="In Process")
 			{
 				value="Warning";
 			}
@@ -54,12 +39,6 @@ utils = {
 			}
 			return value;
 				
-		},
-		getDate : function(date)
-		{
-			console.log(date);
-			return new Date(date).toDateString();
-
 		}
 	}
 };

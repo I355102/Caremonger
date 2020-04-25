@@ -1,7 +1,4 @@
-<mvc:View
-	controllerName="caremonger.caremonger_ui.controller.Main"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
+<mvc:View controllerName="caremonger.caremonger_ui.controller.Main" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:semantic="sap.f.semantic">
 	<App id = "idApp">
 	<semantic:SemanticPage
@@ -21,32 +18,33 @@
 				select=".onQuickFilter"
 				expandable="false"
 				headerBackgroundDesign="Transparent">
-				<items>
+					<items>
 					<IconTabFilter
 						key="all"
 						showAll="true"
-						text="All Requests"/>
+						text="All Locations"/>
 					<IconTabFilter
-						id="Low"
-						key="Low"
+						id="Whitefield"
+						key="Whitefield"
+						count=""
 						icon="sap-icon://message-success"
 						iconColor="Positive"
-						count="{worklistView>/inStock}"
-						text="Low"/>
+						text="Whitefield"/>
 					<IconTabFilter
-						id="Medium"
-						key="Medium"
+						id="Mahadevpura"
+						key="Mahadevpura"
+						count=""
+						icon="sap-icon://message-error"
+						iconColor="Default"
+						text="Mahadevpura"/>
+					<IconTabFilter
+						id="Hoodi"
+						key="Hoodi"
+						count=""
 						icon="sap-icon://message-warning"
 						iconColor="Critical"
-						count="{worklistView>/shortage}"
-						text="Medium"/>
-					<IconTabFilter
-						id="High"
-						key="High"
-						icon="sap-icon://message-error"
-						iconColor="Negative"
-						count="{worklistView>/outOfStock}"
-						text="High"/>
+						text="Hoodi"/>
+				
 				</items>
 				<content>
 			<Table
@@ -61,22 +59,12 @@
 							text="Request Details"
 							level="H3"/>
 						<ToolbarSpacer />
-						<SearchField
-							id="searchField"
-							tooltip="{i18n>worklistSearchTooltip}"
-							search=".onSearch">
-							<layoutData>
-								<OverflowToolbarLayoutData
-									maxWidth="200px"
-									priority="NeverOverflow"/>
-							</layoutData>
-						</SearchField>
 						</OverflowToolbar>
 				</headerToolbar>
 
 				<columns>
 					
-					<Column hAlign="Center" id="unitNumberColumn1" level="H3" >
+					<Column hAlign="Center" id="unitNumberColumn1" >
 						<Text text="{i18n>tableColumnTitle1}" id="unitNumberColumnTitle1"/>
 					</Column>
 					<Column hAlign="Center" id="unitNumberColumn6"  >
