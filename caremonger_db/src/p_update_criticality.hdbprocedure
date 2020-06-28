@@ -1,7 +1,7 @@
 PROCEDURE "caremonger.caremonger_db::p_update_criticality" (
 	IN order_id INTEGER,
-	IN criticality VARCHAR(30),
-	OUT message VARCHAR(100))
+	IN criticality NVARCHAR(30),
+	OUT message NVARCHAR(100))
 LANGUAGE SQLSCRIPT
 SQL SECURITY INVOKER
 AS

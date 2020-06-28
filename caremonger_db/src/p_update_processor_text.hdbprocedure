@@ -1,8 +1,8 @@
 PROCEDURE "caremonger.caremonger_db::p_update_processor_text" (
 	IN order_id INTEGER,
 	IN processor_id INTEGER,
-	IN processor_text VARCHAR(5000),
-	OUT message VARCHAR(100))
+	IN processor_text NVARCHAR(5000),
+	OUT message NVARCHAR(100))
 LANGUAGE SQLSCRIPT
 SQL SECURITY INVOKER
 AS
