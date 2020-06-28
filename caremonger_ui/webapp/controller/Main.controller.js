@@ -9,7 +9,7 @@ sap.ui.define([
 	return BaseController.extend("caremonger.caremonger_ui.controller.Main", {
 		onInit: function () {
 
-			var oModel = new sap.ui.model.odata.ODataModel("https://1q01ntccb0ionnvuaremonger-service.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
+			var oModel = new sap.ui.model.odata.ODataModel("https://lvhmfpf6jpgn677waremonger-service.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
 
 			var jModel = new sap.ui.model.json.JSONModel({});
 			this.getView().setModel(jModel, "TableData");
@@ -72,7 +72,7 @@ sap.ui.define([
 				},		
 			
 			onQuickFilter: function(oEvent) {
-				var oModel = new sap.ui.model.odata.ODataModel("https://1q01ntccb0ionnvuaremonger-service.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
+				var oModel = new sap.ui.model.odata.ODataModel("https://lvhmfpf6jpgn677waremonger-service.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
 					var jModel = new sap.ui.model.json.JSONModel({});
 					this.getView().setModel(jModel, "TableData");
 				  	this.getView().setModel(oModel);

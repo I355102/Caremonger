@@ -30,7 +30,7 @@ sap.ui.define([
 
 			this.sid = null;
 			//this.getRouter().getRoute("object").attachPatternMatched(this._onObjectMatched, this);
-			var oModel = new sap.ui.model.odata.ODataModel("https://1q01ntccb0ionnvuaremonger-service.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
+			var oModel = new sap.ui.model.odata.ODataModel("https://lvhmfpf6jpgn677waremonger-service.cfapps.eu10.hana.ondemand.com/odata.xsodata", true);
 			var jModel = new sap.ui.model.json.JSONModel({});
 			this.getView().setModel(jModel, "TableData2");
 	     	this.getView().setModel(oModel);

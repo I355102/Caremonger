@@ -6,7 +6,9 @@ const hdbext = require("@sap/hdbext");
 module.exports = function() {
 	var db;
 	function callProcedure(procedureName, data, db, res) {
-		data = JSON.parse(data);
+		if (procedureName !== 'caremonger.caremonger_db::p_get_processor_texts') {
+			data = JSON.parse(data);
+		}
 		var client = db;
 		hdbext.loadProcedure(client, null, procedureName, function (err, sp) {
 			if (err) {
@@ -29,6 +31,17 @@ module.exports = function() {
 		});
 	}
 
+	app.get("/getProcessorTexts/:IN_ORDER_ID",(req,res) => {
+		try {
+			db = req.db;
+			let order = req.params.IN_ORDER_ID;
+			let procedureName = "caremonger.caremonger_db::p_get_processor_texts";
+			callProcedure(procedureName, order, db, res);
+		} catch(err) {
+			console.log(err);
+		}
+	});
+	
 	app.post("/createProcessor",(req,res) => {
 		try {
 			db = req.db;
