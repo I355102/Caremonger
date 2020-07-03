@@ -1,14 +1,20 @@
 PROCEDURE "caremonger.caremonger_db::p_get_processor_texts"( 
 	IN IN_ORDER_ID BIGINT,
 	OUT processor_texts TABLE("ORDER_ID" INTEGER, "REQUESTER_NAME"  NVARCHAR(50), "REQUESTER_PHONE_NUMBER" BIGINT, "REQUEST_DESCRIPTION"  NVARCHAR(5000), "REQUEST_TYPE"  NVARCHAR(100), 
-	"REQUESTER_LOCATION"  NVARCHAR(50), "REQUEST_TIME" TIMESTAMP, "CRITICALITY"  NVARCHAR(20), REQUEST_STATUS NVARCHAR(30), PROCESSOR_ID INTEGER, PROCESSOR_TEXT NVARCHAR(5000), "FIRST_NAME" NVARCHAR(50), "LAST_NAME" NVARCHAR(50), 
-	"ADDRESS" NVARCHAR(1000), "PIN_CODE" INTEGER, MOBILE_NUMBER BIGINT)
+	"REQUESTER_LOCATION"  NVARCHAR(50), "REQUEST_TIME" TIMESTAMP, "CRITICALITY"  NVARCHAR(20), REQUEST_STATUS NVARCHAR(30), PROCESSOR_ID INTEGER, PROCESSOR_TEXT NVARCHAR(5000), "FIRST_NAME" 
+	NVARCHAR(50), "LAST_NAME" NVARCHAR(50), "ADDRESS" NVARCHAR(1000), "PIN_CODE" INTEGER, MOBILE_NUMBER BIGINT)
 )
    LANGUAGE SQLSCRIPT
    SQL SECURITY INVOKER
    --DEFAULT SCHEMA <default_schema_name>
    READS SQL DATA AS
 BEGIN
-	processor_texts = select * from "caremonger.caremonger_db::cv_processor_texts"(placeholder."$$IN_ORDER_ID$$" => :IN_ORDER_ID);
+	processor_texts = select A.order_id, A.requester_name, A.requester_phone_number, A.request_description, A.request_type, A.requester_location, A.request_time,
+					  A.criticality, A.request_status, B.processor_id, B.processor_text, C.first_name, C.last_name, C.address, C.pin_code, C.mobile_number 
+					  from "caremonger.caremonger_db::data.t_incoming_information" A
+					  inner join "caremonger.caremonger_db::data.t_processor_text" B
+					  on A.order_id = B.order_id
+					  inner join "caremonger.caremonger_db::data.t_processor" C
+					  on B.processor_id = C.processor_id
+					  where A.order_id = :IN_ORDER_ID;
 END
-

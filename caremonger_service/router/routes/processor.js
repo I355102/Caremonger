@@ -18,7 +18,7 @@ module.exports = function() {
 					.send("ERROR: " + err.toString());
 				return;
 			}
-			sp(data, function (err, results) {
+			sp(data, function (err, paramsResults, tableResults) {
 				if (err) {
 					res
 						.type("text/plain")
@@ -26,7 +26,10 @@ module.exports = function() {
 						.send("ERROR: " + err.message.toString());
 					return;
 				}
-				res.send(results);
+				if(tableResults) {
+					res.send(tableResults);					
+				} else
+				res.send(paramsResults);
 			});
 		});
 	}
